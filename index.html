@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Shop</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;500&display=swap");
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family: 'Montserrat',sans-serif;
+            font-weight: 200;
+
+        }
+
+        #main{
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+        h1{
+            margin-top: 50px;
+            margin-bottom: 10px;
+        }
+
+        #form{
+            display: none;
+            text-align: center;
+        }
+
+        input{
+            width: 90%;
+            outline: none;
+            margin: 10px 5%;
+            padding: 15px 10px;
+            font-size: 14px;
+            border:2px solid silver;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="main">
+    <h1> Online shop</h1>
+    <img src="https://cdn-icons-png.flaticon.com/512/3595/3595455.png">
+    <p>KHHKVkhgIUG:UIOG:IUG:IG::IUYG:IUYG:IUG:Viug</p>
+    <button id="Buy">Buy</button>
+
+</div>
+<form id="form">
+    <input type="text" placeholder="Name" id="user_name">
+    <input type="text" placeholder="Email" id="user_email">
+    <input type="text" placeholder="Number" id="user_number">
+    <div id="error"></div>
+    <button id="order">Order</button>
+</form>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+    let tg=window.Telegram.WebApp;
+    let buy=document.getElementById("buy")
+    let order=document.getElementById("order")
+    tg.expand();
+
+    buy.addEventListener("click", ()=>{
+        document.getElementById("main").style.display="none"
+        document.getElementById("form").style.display="block"
+        document.getElementById("user_name").value=tg.initDataUnsafe.user.first_name+ " " +tg.initDataUnsafe.user.last_name;
+    })
+    order.addEventListener("click",()=>{
+        document.getElementById("error").innereText="";
+        let name=document.getElementById("user_name").value;
+        let email=document.getElementById("user_email").value;
+        let number=document.getElementById("user_number").value;
+        if(name.length<5){
+            document.getElementById("error").innerText="Error in the first name";
+            return
+        }
+        if(email.length<5){
+            document.getElementById("error").innerText="Error in the email";
+            return
+        }
+        if(number.length<5){
+            document.getElementById("error").innerText="Error in the phone number";
+            return
+        }
+        let data={
+            name:name,
+            email:email,
+            number:number,
+
+        }
+        tg.senData(JSON.stringify(data))
+
+
+      tg.close();
+    })
+</script>
+</body>
+</html>
