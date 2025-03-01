@@ -1,7 +1,7 @@
 from  aiogram import Bot, Dispatcher,executor,types
 from aiogram.types.web_app_info import WebAppInfo
 
-bot=Bot("7848260523:AAExCesoYa-AGgFJRiJfBKemm20SizNAg7E")
+bot=Bot("")
 dp=Dispatcher(bot)
 
 @dp.message_handler(commands=['start'])
